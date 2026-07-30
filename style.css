@@ -1,14 +1,26 @@
 :root {
   --paper: #e7e6db;
   --ink: #232f26;
+  --font-mono: "Inter", "Helvetica Neue", Arial, sans-serif;
 }
 
 @media (prefers-reduced-motion: reduce) {
 }
 
+::before,
+*::after {
+  box-sizing: border-box;
+}
+html,
 body {
-  background-color: var(--paper);
+  margin: 0;
+  padding: 0;
+}
+body {
+  background: var(--paper);
   color: var(--ink);
+  font-family: var(--font-mono);
+  min-height: 100vh;
 }
 
 .header-title {
@@ -23,9 +35,14 @@ body {
 }
 
 .header-subtitle {
+  font: var(--font-mono);
 }
 
 .image-gallery {
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
 }
 .image-gallery img {
 }
