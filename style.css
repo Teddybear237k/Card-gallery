@@ -1,7 +1,28 @@
 :root {
+  --paper: #e7e6db;
+  --ink: #232f26;
+}
+
+@media (prefers-reduced-motion: reduce) {
 }
 
 body {
+  background-color: var(--paper);
+  color: var(--ink);
+}
+
+.header-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 22px;
+  margin-bottom: 34px;
+}
+
+.header-subtitle {
 }
 
 .image-gallery {
