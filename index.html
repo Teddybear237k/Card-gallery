@@ -12,65 +12,87 @@
 
     <header>
         <h1>Image Library</h1>
+        <h2>Use this to filter between models and nature.</h2>
+        <div class="filter-wrapper">
+            <!-- Filter Controls -->
+            <input type="radio" id="all" name="categories" checked>
+            <label for="all">Show All</label>
+
+            <input type="radio" id="models" name="categories">
+            <label for="models">Models</label>
+
+            <input type="radio" id="nature" name="categories">
+            <label for="nature">Nature</label>
+        </div>
     </header>
 
     <main class="gallery">
 
-        <article class="card" style="--i:0;" tabindex="0">
+        <article class="card" style="--i:0;" tabindex="0" data-category="models">
             <div class="image">
                 <img src="1.jpg" alt="Image 1">
             </div>
         </article>
 
-        <article class="card" style="--i:1;" tabindex="0">
+        <article class="card" style="--i:1;" tabindex="0" data-category="models">
             <div class="image">
                 <img src="2.jpg" alt="Image 2">
             </div>
         </article>
 
-        <article class="card" style="--i:2;" tabindex="0">
+        <article class="card" style="--i:2;" tabindex="0" data-category="models">
             <div class="image">
                 <img src="3.jpg" alt="Image 3">
             </div>
         </article>
 
-        <article class="card" style="--i:3;" tabindex="0">
+        <article class="card" style="--i:3;" tabindex="0" data-category="models">
             <div class="image">
                 <img src="4.jpg" alt="Image 4">
             </div>
         </article>
 
-        <article class="card" style="--i:4;" tabindex="0">
+        <article class="card" style="--i:4;" tabindex="0" data-category="nature">
             <div class="image">
                 <img src="5.jpg" alt="Image 5">
             </div>
         </article>
 
-        <article class="card" style="--i:5;" tabindex="0">
+        <article class="card" style="--i:5;" tabindex="0" data-category="nature">
             <div class="image">
                 <img src="6.jpg" alt="Image 6">
             </div>
         </article>
 
-        <article class="card" style="--i:6;" tabindex="0">
+        <article class="card" style="--i:6;" tabindex="0" data-category="nature">
             <div class="image">
                 <img src="7.jpg" alt="Image 7">
             </div>
         </article>
 
-        <article class="card" style="--i:7;" tabindex="0">
+        <article class="card" style="--i:7;" tabindex="0" data-category="nature">
             <div class="image">
                 <img src="8.jpg" alt="Image 8">
             </div>
         </article>
 
-        <article class="card" style="--i:8;" tabindex="0">
+        <article class="card" style="--i:8;" tabindex="0" data-category="nature">
             <div class="image">
                 <img src="9.jpg" alt="Image 9">
             </div>
         </article>
 
     </main>
+
+    <!-- Lightbox / expanded view -->
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Expanded image view" hidden>
+        <button class="lightbox-close" id="lightbox-close" aria-label="Close expanded view">&times;</button>
+        <button class="lightbox-nav lightbox-prev" id="lightbox-prev" aria-label="Previous image">&#10094;</button>
+        <img class="lightbox-img" id="lightbox-img" src="" alt="">
+        <button class="lightbox-nav lightbox-next" id="lightbox-next" aria-label="Next image">&#10095;</button>
+    </div>
+
+    <script src="script.js"></script>
 
 </body>
 
