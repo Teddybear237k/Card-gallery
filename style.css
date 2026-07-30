@@ -32,41 +32,25 @@ h1 {
 
   background: #fff;
   border-radius: 14px;
-
   overflow: hidden;
-
   cursor: pointer;
-
   position: relative;
-
   outline: none;
-
   transform: translateY(40px);
-
   opacity: 0;
-
   animation: fadeUp 0.6s ease forwards;
-
   animation-delay: calc(var(--i) * 60ms);
-
   transition: transform 0.35s ease;
 }
 
 .card::after {
   content: "";
-
   position: absolute;
-
   inset: 0;
-
   border-radius: inherit;
-
   box-shadow: 0 20px 45px rgba(0, 0, 0, 0.18);
-
   opacity: 0;
-
   transition: opacity 0.35s ease;
-
   pointer-events: none;
 }
 
@@ -76,13 +60,9 @@ h1 {
 
 .image img {
   display: block;
-
   width: 100%;
-
   aspect-ratio: 4/3;
-
   object-fit: cover;
-
   transition: transform 0.45s ease;
 }
 
@@ -95,6 +75,10 @@ h1 {
 }
 
 .card:hover img {
+  transform: scale(1.08);
+}
+
+.card:focus img {
   transform: scale(1.08);
 }
 
@@ -119,15 +103,12 @@ h1 {
 @media (prefers-reduced-motion: reduce) {
   * {
     animation: none !important;
-
     transition: none !important;
-
     scroll-behavior: auto;
   }
 
   .card {
     opacity: 1;
-
     transform: none;
   }
 }
