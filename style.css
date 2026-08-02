@@ -5,7 +5,9 @@
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
   background: #ffffff;
   color: #222;
   padding: 40px;
@@ -13,12 +15,69 @@ body {
 
 header {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 56px;
 }
 
 h1 {
-  font-size: 2rem;
-  font-weight: 600;
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #111;
+}
+
+.subtitle {
+  margin-top: 8px;
+  margin-bottom: 28px;
+  color: #666;
+  font-size: 1rem;
+}
+
+/* Filter pills */
+
+.filter-wrapper {
+  display: inline-flex;
+  gap: 4px;
+  padding: 6px;
+  background: #f1f2f4;
+  border-radius: 999px;
+}
+
+.filter-wrapper input[type="radio"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.filter-wrapper label {
+  display: inline-block;
+  padding: 8px 20px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #555;
+  cursor: pointer;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease;
+}
+
+.filter-wrapper label:hover {
+  color: #111;
+}
+
+.filter-wrapper input:checked + label {
+  background: #111;
+  color: #fff;
+}
+
+.filter-wrapper input:focus-visible + label {
+  outline: 3px solid #2d7ff9;
+  outline-offset: 2px;
 }
 
 .gallery {
@@ -36,18 +95,21 @@ h1 {
   cursor: pointer;
   position: relative;
   outline: none;
-  transform: translateY(40px);
   opacity: 0;
-  animation: fadeUp 0.6s ease forwards;
+  transform: translateY(40px);
+  animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   animation-delay: calc(var(--i) * 60ms);
-  transition: transform 0.35s ease;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  transform: translateY(0);
+  transition:
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.3s ease,
+    display 0.3s allow-discrete,
+    overlay 0.3s allow-discrete;
 }
 
 .card:hover {
-  transform: translateY(-8px);
+  transform: translateY(-10px);
 }
+
 .card::after {
   content: "";
   position: absolute;
@@ -57,6 +119,10 @@ h1 {
   opacity: 0;
   transition: opacity 0.35s ease;
   pointer-events: none;
+}
+
+.card:hover::after {
+  opacity: 1;
 }
 
 .image {
@@ -71,25 +137,13 @@ h1 {
   transition: transform 0.45s ease;
 }
 
-.card:hover {
-  transform: translateY(-10px);
-}
-
-.card:hover::after {
-  opacity: 1;
-}
-
-.card:hover img {
-  transform: scale(1.08);
-}
-
-.card:focus img {
+.card:hover img,
+.card:focus-visible img {
   transform: scale(1.08);
 }
 
 .card:focus-visible {
   outline: 3px solid #2d7ff9;
-
   outline-offset: 4px;
 }
 
@@ -118,30 +172,78 @@ h1 {
   }
 }
 
-/* 1. If 'Models' is checked, hide cards that are NOT models */
-body:has(#models:checked) .card:not([data-category="models"]) {
-  display: none;
-}
-
-/* 2. If 'Nature' is checked, hide cards that are NOT nature */
+/* 1. If 'Models' is checked, hide cards that are NOT models.
+   2. If 'Nature' is checked, hide cards that are NOT nature.
+   The hidden target state also carries opacity/transform so the .card
+   transition (display included, via allow-discrete) can fade + shrink
+   the card out before the display flip removes it from layout. The
+   survivors still reflow instantly to fill the gap -- script.js wraps
+   the filter change in a View Transition where supported to smooth
+   that reflow too; this is the accepted no-JS floor. */
+body:has(#models:checked) .card:not([data-category="models"]),
 body:has(#nature:checked) .card:not([data-category="nature"]) {
   display: none;
+  opacity: 0;
+  transform: translateY(12px) scale(0.94);
 }
 
-/* Lightbox / expanded view */
+/* Lightbox / expanded view -- native <dialog> */
 
 .lightbox {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.85);
+  width: 100%;
+  height: 100%;
+  max-width: 100vw;
+  max-height: 100vh;
+  margin: 0;
+  border: none;
+  padding: 0;
+  background: transparent;
+  color: inherit;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+
+  opacity: 1;
+  transform: scale(1);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    overlay 0.3s allow-discrete,
+    display 0.3s allow-discrete;
 }
 
-.lightbox[hidden] {
-  display: none;
+.lightbox:not([open]) {
+  opacity: 0;
+  transform: scale(0.96);
+  pointer-events: none;
+}
+
+@starting-style {
+  .lightbox[open] {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+
+.lightbox::backdrop {
+  background: rgba(0, 0, 0, 0.85);
+  opacity: 0;
+  transition:
+    opacity 0.3s ease,
+    overlay 0.3s allow-discrete,
+    display 0.3s allow-discrete;
+}
+
+.lightbox[open]::backdrop {
+  opacity: 1;
+}
+
+@starting-style {
+  .lightbox[open]::backdrop {
+    opacity: 0;
+  }
 }
 
 .lightbox-img {
