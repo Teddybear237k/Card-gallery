@@ -1,1 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Library</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>Image Library</h1>
+        <p class="subtitle">Use this to filter between models and nature.</p>
+        <div class="filter-wrapper">
+            <!-- Filter Controls -->
+            <input type="radio" id="all" name="categories" checked>
+            <label for="all">Show All</label>
+
+            <input type="radio" id="models" name="categories">
+            <label for="models">Models</label>
+
+            <input type="radio" id="nature" name="categories">
+            <label for="nature">Nature</label>
+        </div>
+    </header>
+
+    <main class="gallery">
+
+        <article class="card" style="--i:0;" tabindex="0" role="button" aria-label="View image 1 expanded" data-category="models">
+            <div class="image">
+                <img src="1.jpg" alt="Model in a tailored charcoal suit against a concrete wall">
+            </div>
+        </article>
+
+        <article class="card" style="--i:1;" tabindex="0" role="button" aria-label="View image 2 expanded" data-category="models">
+            <div class="image">
+                <img src="2.jpg" alt="Model in golden-hour backlight wearing a flowing dress">
+            </div>
+        </article>
+
+        <article class="card" style="--i:2;" tabindex="0" role="button" aria-label="View image 3 expanded" data-category="models">
+            <div class="image">
+                <img src="3.jpg" alt="Studio portrait of a model with dramatic side lighting">
+            </div>
+        </article>
+
+        <article class="card" style="--i:3;" tabindex="0" role="button" aria-label="View image 4 expanded" data-category="models">
+            <div class="image">
+                <img src="4.jpg" alt="Model walking a runway in an avant-garde silhouette">
+            </div>
+        </article>
+
+        <article class="card" style="--i:4;" tabindex="0" role="button" aria-label="View image 5 expanded" data-category="nature">
+            <div class="image">
+                <img src="5.jpg" alt="Aurora borealis rippling over snow-capped mountains">
+            </div>
+        </article>
+
+        <article class="card" style="--i:5;" tabindex="0" role="button" aria-label="View image 6 expanded" data-category="nature">
+            <div class="image">
+                <img src="6.jpg" alt="Misty pine forest at sunrise">
+            </div>
+        </article>
+
+        <article class="card" style="--i:6;" tabindex="0" role="button" aria-label="View image 7 expanded" data-category="nature">
+            <div class="image">
+                <img src="7.jpg" alt="Turquoise alpine lake reflecting the surrounding peaks">
+            </div>
+        </article>
+
+        <article class="card" style="--i:7;" tabindex="0" role="button" aria-label="View image 8 expanded" data-category="nature">
+            <div class="image">
+                <img src="8.jpg" alt="Rolling desert dunes at dusk">
+            </div>
+        </article>
+
+        <article class="card" style="--i:8;" tabindex="0" role="button" aria-label="View image 9 expanded" data-category="nature">
+            <div class="image">
+                <img src="9.jpg" alt="Waterfall cascading through a moss-covered canyon">
+            </div>
+        </article>
+
+    </main>
+
+    <!-- Lightbox / expanded view. <dialog> gives us the focus trap, top layer,
+         and Escape-to-close for free. -->
+    <dialog class="lightbox" id="lightbox" aria-label="Expanded image view">
+        <button class="lightbox-close" id="lightbox-close" aria-label="Close expanded view">&times;</button>
+        <button class="lightbox-nav lightbox-prev" id="lightbox-prev" aria-label="Previous image">&#10094;</button>
+        <img class="lightbox-img" id="lightbox-img" src="" alt="">
+        <button class="lightbox-nav lightbox-next" id="lightbox-next" aria-label="Next image">&#10095;</button>
+    </dialog>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
